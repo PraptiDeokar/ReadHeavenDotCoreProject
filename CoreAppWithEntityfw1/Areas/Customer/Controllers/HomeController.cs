@@ -43,8 +43,23 @@ namespace TheReadHaven.Areas.Customer.Controllers
             var claimsIdentity=(ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCart.ApplicationUserId = userId;
-            _unitOfWork.ShoppingCart.Add(shoppingCart);
+
+            ShoppingCart cardFromDb = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId && 
+            u.ProductId == shoppingCart.ProductId);
+
+            if(cardFromDb != null ) {
+                //ShoppingCart exists
+                cardFromDb.Count += shoppingCart.Count;
+                _unitOfWork.ShoppingCart.Update(cardFromDb);
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.Add(shoppingCart);
+            }
+
+         
             _unitOfWork.Save();
+            TempData["success"] = "Cart updated successfully";
             return RedirectToAction(nameof(Index));
         }
 

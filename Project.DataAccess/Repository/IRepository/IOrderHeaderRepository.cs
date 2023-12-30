@@ -11,7 +11,7 @@ namespace Project.DataAccess.Repository.IRepository
     public interface IOrderHeaderRepository:IRepository<OrderHeader>
     {
         void Update(OrderHeader obj);
-        void UpdatStatus(int id,string OrdeStatus,string? PaymentStatus=null);
+        void UpdateStatus(int id,string OrdeStatus,string? PaymentStatus=null);
         void UpdateStripePaymentID(int id,string sessionId,string paymentIntentId);
        // void Save();
     }

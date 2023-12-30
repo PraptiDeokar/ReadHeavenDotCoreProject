@@ -26,7 +26,7 @@ namespace Project.DataAccess.Repository
 			_db.OrderHeaders.Update(obj);
 		}
 
-		public void UpdatStatus(int id, string OrdeStatus, string? PaymentStatus = null)
+		public void UpdateStatus(int id, string OrdeStatus, string? PaymentStatus = null)
 		{
 			var OrderFromDb = _db.OrderHeaders.FirstOrDefault(x => x.Id == id);
 			if (OrderFromDb != null){
@@ -50,7 +50,5 @@ namespace Project.DataAccess.Repository
 				OrderFromDb.PaymentDate=DateTime.Now;
 			}
 		}
-
-
 	}
 }

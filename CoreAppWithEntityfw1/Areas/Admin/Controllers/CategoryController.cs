@@ -90,7 +90,7 @@ namespace TheReadHaven.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.ID == id);
+             Category? categoryFromDB = _unitOfWork.Category.Get(u => u.ID == id);
             //Category? categoryFromDB1 = _db.categories.FirstOrDefault(u => u.ID == id);
             //Category? categoryFromDB2 = _db.categories.Where(u => u.ID == id).FirstOrDefault();
 

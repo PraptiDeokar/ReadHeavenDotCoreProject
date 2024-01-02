@@ -5,6 +5,7 @@ using Project.DataAccess.Repository.IRepository;
 using Project.Models.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Project.Utility;
 
 namespace TheReadHaven.Areas.Customer.Controllers
 {
@@ -51,14 +52,17 @@ namespace TheReadHaven.Areas.Customer.Controllers
                 //ShoppingCart exists
                 cardFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cardFromDb);
+                _unitOfWork.Save();
             }
             else
             {
+                
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(StaticDetails.SessionCart,
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
             }
 
-         
-            _unitOfWork.Save();
             TempData["success"] = "Cart updated successfully";
             return RedirectToAction(nameof(Index));
         }

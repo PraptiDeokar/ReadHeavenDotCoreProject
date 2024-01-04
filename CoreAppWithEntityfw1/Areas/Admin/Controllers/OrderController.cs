@@ -60,7 +60,7 @@ namespace TheReadHaven.Areas.Admin.Controllers
 			}
             if (!string.IsNullOrEmpty(OrderVM.OrderHeader.TRackingNumber))
             {
-                orderHeaderFromDb.Carrier = OrderVM.OrderHeader.TRackingNumber;
+                orderHeaderFromDb.TRackingNumber = OrderVM.OrderHeader.TRackingNumber;
             }
 			_unitOfWork.OrderHeader.Update(orderHeaderFromDb);
 			_unitOfWork.Save();
